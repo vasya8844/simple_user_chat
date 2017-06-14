@@ -1,0 +1,7 @@
+Poller.clear();
+Poller.poll(0);
+<% if @message.new_record? %>
+  alert('повідомлення не надіслано');
+<% else %>
+  $('#message_body').val('');
+<% end %>

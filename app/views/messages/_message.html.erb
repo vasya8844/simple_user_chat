@@ -1,0 +1,7 @@
+<li class="media message" data-id="<%= message.id %>">
+  <div class="media-body">
+    <h4 class="media-heading"><%= link_to message.user.name, root_path, target: '_blank' %> написав
+      <small class="text-muted">[at <%= message.created_at.strftime('%-d %B %Y, %H:%M:%S') %>]</small></h4>
+    <p><%= message.body %></p>
+  </div>
+</li>
