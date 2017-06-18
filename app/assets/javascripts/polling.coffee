@@ -9,7 +9,8 @@ window.Poller = {
   clear: -> clearTimeout(this.pollTimeout)
   request: ->
     first_id = $('.message').first().data('id')
-    $.get('/messages', after_id: first_id)
+    to_id = $('#messages').first().data('to_id')
+    $.get('/messages/show', to_user_id: to_id, after_id: first_id)
 }
 
 jQuery ->

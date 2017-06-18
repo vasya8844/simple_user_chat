@@ -1,6 +1,7 @@
 <div class="well">
   <%= form_for @message, remote: true do |f| %>
     <div class="form-group">
+      <%= f.hidden_field :to_user_id, value: @to_user.id %>
       <%= f.label :body, 'your message:' %>
       <%= f.text_area :body, rows: 3, class: 'form-control', required: true, maxlength: 2000 %>
       <small class="label label-warning">not blank and max length 200.</small>

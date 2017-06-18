@@ -1,0 +1,14 @@
+<div class="page-header">
+  <h1>Приєднайся до переписки!</h1>
+</div>
+
+<ul>
+  <% @users.each do |user| %>
+    <li>
+      <%= link_to user.name, action: :new, to_user_id: user.id %>
+      <% if user.try(:unread_count).try(:>, 0) %>
+        (<%= user.unread_count %>)
+      <% end %>
+	</li>
+  <% end %>
+</ul>

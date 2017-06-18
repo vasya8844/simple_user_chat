@@ -9,16 +9,22 @@
   </head>
 
   <body>
-    <%= render 'shared/nav' %>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <%= render 'shared/nav' %>
 
-    <div class="container">
-      <% flash.each do |key, value| %>
-        <div class="alert alert-<%= key %>">
-          <%= value %>
+          <% flash.each do |key, value| %>
+            <div class="alert alert-<%= key %>">
+              <%= value %>
+            </div>
+          <% end %>
+
+          <%= yield %>
+
         </div>
-      <% end %>
-
-      <%= yield %>
+      </div>
     </div>
+
   </body>
 </html>

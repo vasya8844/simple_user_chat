@@ -1,18 +1,10 @@
-<h1>Переписка!</h1>
+<h1>Переписка з '<%= @to_user.name %>'</h1>
 
-<% if current_user %>
-  <div class="page-header">
-    <h1>Приєднайся до переписки!</h1>
+<%= render 'form' %>
+<div class="panel panel-default" id="messages" data-to_id="<%= @to_user.id %>">
+  <div class="panel-body">
+    <ul class="media-list">
+      <%= render @messages %>
+    </ul>
   </div>
-
-  <%= render 'form' %>
-  <div class="panel panel-default" id="messages">
-    <div class="panel-body">
-      <ul class="media-list">
-        <%= render @messages %>
-      </ul>
-    </div>
-  </div>
-<% else %>
-  <%= 'привіт' %>
-<% end %>
+</div>
