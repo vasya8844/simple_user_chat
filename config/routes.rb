@@ -10,6 +10,10 @@ Rails.application.routes.draw do
   # ,  :controllers => {:registrations=> "registrations"}
   
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  resources :messages, only: [:new, :create, :index, :show]
+  resources :messages, only: [:new, :create, :index, :show] do
+    collection do 
+      get :top_count
+    end
+  end
   root to: 'messages#index'
 end

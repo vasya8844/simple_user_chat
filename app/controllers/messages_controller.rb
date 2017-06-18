@@ -2,26 +2,31 @@ class MessagesController < ApplicationController
   before_filter :define_to_user, only: [:show, :new]
 
   def index
-    @users = User.active.
-      select('users.id, name, count(*) - 1 unread_count').
-      joins('LEFT JOIN messages m ON m.user_id = users.id').
-      where('users.id != ?', current_user).
-      where('m.id IS NULL OR m.is_read = ? AND m.to_user_id = ?', false, current_user.id).
-      group('users.id').
-      order('unread_count DESC')
+    message_counts = Message.select('user_id, count(*)').
+      where(to_user_id: current_user.id).where(is_read: false).
+      group(:user_id).collect{ |m| [m.user_id, m.count] }.to_h
+
+    @users = User.active.where('users.id != ?', current_user)
+    @users = @users.collect{ |u| {sent_count: message_counts[u.id] || 0, user: u}}.
+      sort_by{ |v| v[:sent_count]}.reverse
+  end
+
+  def top_count
+    r = Message.where(to_user_id: current_user.id, is_read: false)
+    if (id = params[:to_user_id].to_i) && id > 0
+      r = r.where('user_id != ?', id)
+    end
+    @top_count = r.count
+    @top_count = @top_count > 0 ? " (#{@top_count})" : ''
   end
 
   def show
-    ids = [current_user.id, @to_user.id]
-    @messages = Message.
-      where('user_id IN (?) AND to_user_id IN (?)', ids, ids).
-      where('id > ?', params[:after_id].to_i).
-      order('created_at DESC')
+    @messages = Message.get_conversation(current_user, @to_user, params[:after_id].to_i)
   end
 
   def new
     @message = Message.new
-    @messages = Message.order('created_at DESC')
+    @messages = Message.get_conversation(current_user, @to_user, 0)
   end
 
   def create

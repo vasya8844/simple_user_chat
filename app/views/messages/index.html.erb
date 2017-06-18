@@ -3,11 +3,14 @@
 </div>
 
 <ul>
-  <% @users.each do |user| %>
+  <% @users.each do |h_user| %>
     <li>
+      <%
+      	user = h_user[:user]
+      %>
       <%= link_to user.name, action: :new, to_user_id: user.id %>
-      <% if user.try(:unread_count).try(:>, 0) %>
-        (<%= user.unread_count %>)
+      <% if h_user[:sent_count] > 0 %>
+        (<%= h_user[:sent_count] %>)
       <% end %>
 	</li>
   <% end %>

@@ -17,3 +17,4 @@
 //= require turbolinks
 //= require_tree .
 //= pooling
+//= top_count
