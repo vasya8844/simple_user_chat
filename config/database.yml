@@ -21,6 +21,6 @@ test:
   <<: *default
   database: simple_user_chat_test
 
-production:
-  <<: *default
-  database: db/production.sqlite3
+# production:
+  # <<: *default
+  # database: db/production.sqlite3
