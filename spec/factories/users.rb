@@ -9,11 +9,4 @@ FactoryGirl.define do
     password '123123'
     password_confirmation '123123'
   end
-
-  factory :admin_user, class: "AdminUser" do
-    name 'Admin User'
-    email { generate :email }
-    password '123123'
-    password_confirmation '123123'
-  end
 end

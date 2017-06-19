@@ -1,5 +1,5 @@
 class MessagesController < ApplicationController
-  before_filter :define_to_user, only: [:show, :new]
+  before_action :define_to_user, only: [:show, :new]
 
   def index
     message_counts = Message.select('user_id, count(*)').
